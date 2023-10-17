@@ -3,7 +3,7 @@ resource "aws_eks_cluster" "example" {
   role_arn = aws_iam_role.example.arn
 
   vpc_config {
-    subnet_ids = [aws_subnet.example1.id, aws_subnet.example2.id]
+    subnet_ids = [aws_subnet.main.id, aws_subnet.second.id]
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
@@ -11,6 +11,7 @@ resource "aws_eks_cluster" "example" {
   depends_on = [
     aws_iam_role_policy_attachment.example-AmazonEKSClusterPolicy,
     aws_iam_role_policy_attachment.example-AmazonEKSVPCResourceController,
+    aws_subnet.main,
   ]
 }
 
@@ -32,6 +33,41 @@ data "aws_iam_policy_document" "assume_role" {
     }
 
     actions = ["sts:AssumeRole"]
+  }
+}
+
+resource "aws_subnet" "main" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.1.0/24"
+
+  tags = {
+    Name = "Main"
+  }
+
+  depends_on = [
+    aws_vpc.main
+  ]
+}
+
+resource "aws_subnet" "second" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.1.0/24"
+
+  tags = {
+    Name = "Second"
+  }
+
+  depends_on = [
+    aws_vpc.main
+  ]
+}
+
+resource "aws_vpc" "main" {
+  cidr_block       = "10.0.0.0/16"
+  instance_tenancy = "default"
+
+  tags = {
+    Name = "main"
   }
 }
 
