@@ -12,6 +12,7 @@ resource "aws_eks_cluster" "example" {
     aws_iam_role_policy_attachment.example-AmazonEKSClusterPolicy,
     aws_iam_role_policy_attachment.example-AmazonEKSVPCResourceController,
     aws_subnet.main,
+    aws_subnet.second,
   ]
 }
 
@@ -36,9 +37,14 @@ data "aws_iam_policy_document" "assume_role" {
   }
 }
 
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 resource "aws_subnet" "main" {
   vpc_id     = aws_vpc.main.id
   cidr_block = "10.0.1.0/24"
+   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
     Name = "Main"
@@ -51,7 +57,8 @@ resource "aws_subnet" "main" {
 
 resource "aws_subnet" "second" {
   vpc_id     = aws_vpc.main.id
-  cidr_block = "10.0.1.0/24"
+  cidr_block = "10.0.2.0/24"
+   availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
     Name = "Second"
