@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    gcp = {
+    google = {
       source = "google"
       version = "~> 5.3"
     }
