@@ -20,13 +20,9 @@ https://cloud.google.com/sdk/docs/authorizing
 
 ## Taking down the deployment
 
-Due to the delete protection configuration on Kubernetes it is possible that Terraform won't be able to delete the cluster using the destroy command. In this case, go to console and delete the cluster manually. However, this puts TF out of sync with what's actually deployed. To fix this run the following command:
+Due to the delete protection configuration on Kubernetes it is possible that Terraform won't be able to delete the cluster using the destroy command. In this case, go to console and delete the cluster manually. However, this puts TF out of sync with what's actually deployed. To fix this run the following command: `terraform refresh`. This script deployed more than just the script, so it is best to run the destroy command again afterwards.
 
-`terraform refresh`
-
-It is possible that the script deployed more than just the script, so it is best to run the destroy command again after doing this.
-
-## list of commands ##
+## terraform commands ##
 
 Initializing the project config
 `terraform init`
