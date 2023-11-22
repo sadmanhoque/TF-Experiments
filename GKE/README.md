@@ -1,6 +1,6 @@
 ### Introduction ###
 
-This is a basic initial TF project to make sure all the configuration setup to connection with GCP is done properly and use that as a reference.
+This is a script for deploying a fully functional Kubernetes based server on Google cloud, the specific service on GCP called Google Kubernetes Engine (GKE).
 
 ## GCP Setup
 
@@ -18,6 +18,14 @@ It is also not a bad idea to have gcloud properly setup and authenticated, the C
 
 https://cloud.google.com/sdk/docs/authorizing
 
+## Taking down the deployment
+
+Due to the delete protection configuration on Kubernetes it is possible that Terraform won't be able to delete the cluster using the destroy command. In this case, go to console and delete the cluster manually. However, this puts TF out of sync with what's actually deployed. To fix this run the following command:
+
+`terraform refresh`
+
+It is possible that the script deployed more than just the script, so it is best to run the destroy command again after doing this.
+
 ## list of commands ##
 
 Initializing the project config
@@ -28,6 +36,9 @@ Planning out the changes it will make
 
 Executing changes
 `terraform apply`
+
+Synchronize resource changes made from console
+`terraform refresh`
 
 Destroy resources defined in the main.tf file
 `terraform destroy`
