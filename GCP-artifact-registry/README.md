@@ -1,4 +1,4 @@
-### Introduction ###
+# Introduction
 
 This is a script for deploying a container image repository on GCP, the specific service is called Artifact Registry for whatever reason. Basically, we need to have the image already stored on this repo before it can be deployed as a container within a node on GKE, for that use the script on the GKE directory.
 
@@ -18,7 +18,7 @@ It is also not a bad idea to have gcloud properly setup and authenticated, the C
 
 https://cloud.google.com/sdk/docs/authorizing
 
-## terraform commands ##
+### terraform commands
 
 Initializing the project config
 `terraform init`
