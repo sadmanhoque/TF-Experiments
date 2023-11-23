@@ -32,7 +32,7 @@ resource "google_container_cluster" "primary" {
 }
 
 #Setting up the ingress for Kubernetes pods
-resource "kubernetes_ingress" "example_ingress" {
+/*resource "kubernetes_ingress" "example_ingress" {
   metadata {
     name = "example-ingress"
   }
@@ -109,4 +109,4 @@ resource "kubernetes_pod" "example" {
       }
     }
   }
-}
+}*/
