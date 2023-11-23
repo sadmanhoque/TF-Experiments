@@ -18,7 +18,52 @@ It is also not a bad idea to have gcloud properly setup and authenticated, the C
 
 https://cloud.google.com/sdk/docs/authorizing
 
-### terraform commands
+## Pushing images to the repo
+
+To authenticate gcloud cli to the repo:
+
+`gcloud auth configure-docker us-central1-docker.pkg.dev`
+
+This seemingly unnecessarily complicated documentation that Google came up with instead of providing the commands on console like ECR:
+
+https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling
+
+To summarize what the above instructions says, we do the following steps:
+
+### Docker Build
+
+First build the image with a specific tag, for example
+`docker build --tag latest .`
+
+### Docker Tag
+
+Using the tag we used the last time as a reference, run this docker tag command:
+`docker tag latest us-central1-docker.pkg.dev/gcp-devops-376520/my-repository/latest-image`
+
+Where
+* region = us-central1
+* project-id = gcp-devops-376520
+* repo name = my-repository
+* image name on gcp = latest-image
+
+### Push the image to artifact registry
+
+For this run the following command:
+`docker push us-central1-docker.pkg.dev/gcp-devops-376520/my-repository/latest-image`
+
+Where
+* region = us-central1
+* project-id = gcp-devops-376520
+* repo name = my-repository
+* image name on gcp = latest-image 
+
+## Pushing to Artifact Registry for production
+
+Pushing to the repo requires the gcloud cli to be authenticated, here it works because ours has already been setup using the service account access keys which gives unlimited access to uploaded images to the repo. In a production environment this is not recommended, we should be using temporary access keys instead. For instructions to set that up follow the instructions here:
+
+https://cloud.google.com/artifact-registry/docs/docker/authentication#linux-macos
+
+## terraform commands
 
 Initializing the project config
 `terraform init`
