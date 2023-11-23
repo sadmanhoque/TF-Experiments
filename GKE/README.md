@@ -18,11 +18,31 @@ It is also not a bad idea to have gcloud properly setup and authenticated, the C
 
 https://cloud.google.com/sdk/docs/authorizing
 
+## Deploying an application to a node within the cluster
+
+### Container Image
+
+The first step is to get the image of the application we want to deploy to the worker node onto GCP. The recommended process for this is to use Googke Artifact Registry, sort of like GCP's version of Docker Hub if you will. The setup script and upload instructions are all in the GCP-artifact-registry directory.
+
+### Deploying worker nodes
+
+Kubectl should already be installed into the local machine, if not, google for the instructions.
+
+Once that's done, kubectl must be configured to deploy to the newly created cluster, for this project it can be done using this command:
+
+`gcloud container clusters get-credentials test-gke --region us-central1`
+
+Where `test-gke` is the name of the cluster and `us-central1` is the region.
+
+We need a configuration file commonly called Kubernetes Manifest which defines the node we will be deploying, an example is within this dir. Once the file is created, run the command:
+
+`kubectl apply -f your-kubernetes-manifest.yaml`
+
 ## Taking down the deployment
 
 Due to the delete protection configuration on Kubernetes it is possible that Terraform won't be able to delete the cluster using the destroy command. In this case, go to console and delete the cluster manually. However, this puts TF out of sync with what's actually deployed. To fix this run the following command: `terraform refresh`. This script deployed more than just the script, so it is best to run the destroy command again afterwards.
 
-## terraform commands ##
+# terraform commands 
 
 Initializing the project config
 `terraform init`
