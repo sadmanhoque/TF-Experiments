@@ -36,7 +36,7 @@ Where `test-gke` is the name of the cluster and `us-central1` is the region.
 
 We need a configuration file commonly called Kubernetes Manifest which defines the node we will be deploying, an example is within this dir. Once the file is created, run the command:
 
-`kubectl apply -f your-kubernetes-manifest.yaml`
+`kubectl apply -f example-kubernetes-manifest.yaml`
 
 ## Taking down the deployment
 
