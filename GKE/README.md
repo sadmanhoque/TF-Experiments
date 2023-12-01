@@ -47,6 +47,12 @@ Where:
 * LoadBalancer = the type of ingress management service used, here on GCP and for this application the most suitable service is a load balancer, it may differ based on the type of application hosted.
 * port and target-port should be self explanatory, they are the port used to access the application, will differ based on how the application and its dockerfile are configured.
 
+After running that command we have a external IP address to access the application from, in production we would now configure a CDN service or the domain configuration to route our domain to this IP, this repo is only for experiments so that part is not here.
+
+To find out what the fixed IP is it can be either found on GCP console by going to the Kubernetes Engine resource menu, then Workload menu, and if we select the deployed workload and scroll to the bottom the IP is shown in the 'expose' section of the configuration. The other way, and I haven't tested this one myself but it probably works, is to run this command and check the 'external-IP' column.
+
+`kubectl get services`
+
 ## Taking down the deployment
 
 Due to the delete protection configuration on Kubernetes it is possible that Terraform won't be able to delete the cluster using the destroy command. In this case, go to console and delete the cluster manually. However, this puts TF out of sync with what's actually deployed. To fix this run the following command: `terraform refresh`. This script deployed more than just the script, so it is best to run the destroy command again afterwards.
