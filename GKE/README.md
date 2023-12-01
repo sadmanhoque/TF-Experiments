@@ -38,6 +38,15 @@ We need a configuration file commonly called Kubernetes Manifest which defines t
 
 `kubectl apply -f example-kubernetes-manifest.yaml`
 
+So far we have only deployed the application to a kubernetes node, but it doesn't have any point of ingress for access. To 'expose' the GKE workload run the following command"
+
+`kubectl expose deployment react-app --type=LoadBalancer --port=3000 --target-port=3000`
+
+Where:
+* react-app = name of the deployed workload, this is defined in the example-kubernetes-manifest.yaml file
+* LoadBalancer = the type of ingress management service used, here on GCP and for this application the most suitable service is a load balancer, it may differ based on the type of application hosted.
+* port and target-port should be self explanatory, they are the port used to access the application, will differ based on how the application and its dockerfile are configured.
+
 ## Taking down the deployment
 
 Due to the delete protection configuration on Kubernetes it is possible that Terraform won't be able to delete the cluster using the destroy command. In this case, go to console and delete the cluster manually. However, this puts TF out of sync with what's actually deployed. To fix this run the following command: `terraform refresh`. This script deployed more than just the script, so it is best to run the destroy command again afterwards.
