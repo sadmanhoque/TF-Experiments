@@ -73,3 +73,16 @@ Synchronize resource changes made from console
 
 Destroy resources defined in the main.tf file
 `terraform destroy`
+
+### NOTES
+
+## Deployment
+
+One of the key aspects of deploying an application to any kubernetes clusters is the kubernetes-manifest file, it's similar to a dockerfile as in it dictates the configuration of the pod we are deploying the container in. 
+
+It is possible to utilize a terraform script for this instead but I did not find enough resources for that and in theory the manifest file should be the same across any kubernetes cluster regardless of the platform they are deployed to, again, this theory needs to be tested.
+
+If using GCP, a quick way to figure out what should be in the kubernetes-manifest for the application we want to deploy is to do it manually. Upload the image to artifact-registry, deploy the cluster using terraform, then instead of running the kubectl command deploy a new workload manually from console. Google has walthroughs and good documentation on this process. Once the workload is deployed with proper ingress configuration and we can confirm that the site is accessible using the IP, there's a tab or button on the main page of the workload we have just deployed, it's called "YAML" or something similar. That is our kubernetes-manifest, all I did was copy whatever was there and used it as the example-kubernetes-manifest.yaml file.
+
+## TODO
+* implement logging
