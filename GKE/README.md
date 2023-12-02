@@ -38,6 +38,8 @@ We need a configuration file commonly called Kubernetes Manifest which defines t
 
 `kubectl apply -f example-kubernetes-manifest.yaml`
 
+Note that the example-kubernetes-manifest.yaml file is pulling a specific image from a specific Google artifact registry, if you follow the instructions and script for deploying the Artifact Registry and uploading an image using the same names as the one already there in the script/readme then nothing needs to be changed. Otherwise you need to update the value in spec: spec: containers: iamge. It is currently set to "us-central1-docker.pkg.dev/gcp-devops-376520/my-repository/latest-image@sha256:b10e80b6ff4a87797d98685a8e6f3044911fb95d4f317fdc2d4cf3a599077e28".
+
 So far we have only deployed the application to a kubernetes node, but it doesn't have any point of ingress for access. To 'expose' the GKE workload run the following command"
 
 `kubectl expose deployment react-app --type=LoadBalancer --port=3000 --target-port=3000`
