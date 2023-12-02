@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-app
+  labels:
+    app: react-app
+  managedFields:
+  - apiVersion: apps/v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: react-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: react-app
+    spec:
+      containers:
+      - name: react-app
+        image: us-central1-docker.pkg.dev/gcp-devops-376520/my-repository/latest-image@sha256:b10e80b6ff4a87797d98685a8e6f3044911fb95d4f317fdc2d4cf3a599077e28
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: kubernetes.io/arch
+        operator: Equal
+        value: amd64

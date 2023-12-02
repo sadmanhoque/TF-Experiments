@@ -5,6 +5,10 @@ https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_
 
 The goal is to utilize this script to deploy a functional full stack web application.
 
+kubernetes-manifest file documentation:
+
+https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#progress-deadline-seconds
+
 ## list of commands ##
 
 Initializing the project config
