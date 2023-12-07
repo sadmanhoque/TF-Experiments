@@ -26,6 +26,12 @@ To authenticate local kubectl with AWS so it can actually deployer worker nodes:
 `aws eks update-kubeconfig --region ca-central-1 --name my-eks-cluster`
 For more documentation on the process https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
 
+To edit the coredns deployment:
+
+`kubectl edit deployment coredns -n kube-system`
+
+To check list of pods, including master pods and worker pods:
+`kubectl get pods -o wide --all-namespaces`
 
 To deploy the worker node now run
 
