@@ -2,6 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: example-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "alb"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:region:account-id:certificate/cert-id" # If using HTTPS
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
 spec:
   selector:
     app: example-app

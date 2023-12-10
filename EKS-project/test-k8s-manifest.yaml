@@ -1,9 +1,9 @@
 apiVersion: apps/v1
-kind: Pod
+kind: Deployment
 metadata:
   name: example-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: example-app

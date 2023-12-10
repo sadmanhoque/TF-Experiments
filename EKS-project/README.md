@@ -9,9 +9,16 @@ kubernetes-manifest file documentation:
 
 https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#progress-deadline-seconds
 
+## Kubernetes Commands
+
 Configure locally installed kubectl to connect with the deployed cluster
 
 `aws eks --region ca-central-1 update-kubeconfig --name my-eks-cluster`
+
+To authenticate local kubectl with AWS so it can actually deployer worker nodes:
+
+`aws eks update-kubeconfig --region ca-central-1 --name my-eks-cluster`
+For more documentation on the process https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
 
 If kubectl is already configured for other clusters run:
 
@@ -21,29 +28,25 @@ The precise cluster name needs to be retrieved from the list of clusters on on k
 
 `kubectl config get-contexts`
 
-To authenticate local kubectl with AWS so it can actually deployer worker nodes:
-
-`aws eks update-kubeconfig --region ca-central-1 --name my-eks-cluster`
-For more documentation on the process https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
-
-To edit the coredns deployment:
+To edit the coredns deployment (optional):
 
 `kubectl edit deployment coredns -n kube-system`
 
 To check list of pods, including master pods and worker pods:
 `kubectl get pods -o wide --all-namespaces`
 
-To deploy the worker node now run
+To deploy the application (worker node) now run
 
 `kubectl apply -f test-k8s-manifest.yaml`
 
-To setup the ingress for the worker node
+To setup the ingress for the application (worker node)
 
 `kubectl apply -f k8s-ingress-manifest.yaml`
 
-Now wait for the changes to be executed, use the console to figure out when it's done.
+Now wait for the changes to be executed, use the console to figure out when it's done. The URL to access the application can be found on console for the load balancer.
 
-After that run
+## Stack deletion notes
+When destroying the stack using Terraform, it looks like the load balancer kubectl is not deleted, and we will need to manually detach the internet gatewat before it can be deleted.
 
 ## list of commands ##
 
