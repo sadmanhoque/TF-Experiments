@@ -3,7 +3,7 @@
 This is a TF project based on deploying a working EKS cluster, it is primarily based on the documentation here:
 https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster
 
-The goal is to utilize this script to deploy a functional full stack web application.
+The goal is to utilize this script to deploy a functional full stack web application. But for this example we are simply deploying the default nginx server, for anything else update the test-k8-manifest.yaml file by replacing the container image 'nginx:latest' with the url:tag of wherever the desired image is hosted, for example the ECR repo link.
 
 kubernetes-manifest file documentation:
 
@@ -35,7 +35,7 @@ To edit the coredns deployment (optional):
 To check list of pods, including master pods and worker pods:
 `kubectl get pods -o wide --all-namespaces`
 
-To deploy the application (worker node) now run
+To deploy the application (worker node) now run:
 
 `kubectl apply -f test-k8s-manifest.yaml`
 

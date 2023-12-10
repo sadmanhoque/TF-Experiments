@@ -164,40 +164,7 @@ resource "aws_iam_policy_attachment" "eks_cluster_policy_attachment_2" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
   roles      = [aws_iam_role.eks_cluster.name]
 }
-/*
-# Create Fargate Profile
-resource "aws_eks_fargate_profile" "fargate_profile" {
-  cluster_name = aws_eks_cluster.eks_cluster.name
-  fargate_profile_name = "default"
-  pod_execution_role_arn = aws_iam_role.example.arn
 
-  subnet_ids = aws_subnet.my_private_subnets[count.index].id
-
-  selector {
-    namespace = "default"
-  }
-}
-
-resource "aws_iam_role" "example" {
-  name = "eks-fargate-profile-example"
-
-  assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "eks-fargate-pods.amazonaws.com"
-      }
-    }]
-    Version = "2012-10-17"
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "example-AmazonEKSFargatePodExecutionRolePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"
-  role       = aws_iam_role.example.name
-}
-*/
 # Create EC2 node group
 resource "aws_eks_node_group" "ec2_node_group" {
   cluster_name    = aws_eks_cluster.eks_cluster.name
