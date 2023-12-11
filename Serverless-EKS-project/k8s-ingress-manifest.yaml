@@ -1,7 +1,14 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: serverless
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: example-service
+  namespace: serverless
 spec:
   selector:
     app: example-app
